@@ -11,7 +11,7 @@ try:
     db = client['ProyectoUD1']
     collection = db['Sensors_lastupdate']
     print("MongoDB connection successful.")
-except ConnectionFailure as e:
+except Exception as e:
     print(f"Could not connect to MongoDB: {e}")
     client = None
     db = None
