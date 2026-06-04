@@ -1,12 +1,16 @@
 from flask import Flask, render_template_string, jsonify
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
 # MongoDB connection setup
 try:
-    client = MongoClient('mongodb+srv://danielmarinpachecoalu_db_user:VbQH99nDlwuElgTF@cluster0.2nypmso.mongodb.net/?appName=Cluster0')
+    client = MongoClient(os.getenv('MONGO_URI'))
     client.admin.command('ismaster')
     db = client['ProyectoUD1']
     collection = db['Sensors_lastupdate']

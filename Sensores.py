@@ -1,11 +1,15 @@
 import datetime
 import random as rd
 import threading as th
+import os
+from dotenv import load_dotenv
 
 from model.Sensor import Sensor
 from KafkaDAO import KafkaDAO
 
-kfk = KafkaDAO(bootstrap_servers=['192.168.1.130:9092'])
+load_dotenv()
+
+kfk = KafkaDAO(bootstrap_servers=[os.getenv('BOOTSTRAP_SERVERS')])
 
 def sensor_simulation(sensor):
     """Single-step simulation call (keeps backwards compatibility)."""
