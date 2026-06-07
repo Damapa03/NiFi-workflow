@@ -1,16 +1,12 @@
 import datetime
 import random as rd
 import threading as th
-import os
-from dotenv import load_dotenv
 
 from model.Sensor import Sensor
 from KafkaDAO import KafkaDAO
 
-load_dotenv()
-
 topic = 'NiFiworkflow'
-kfk = KafkaDAO(bootstrap_servers=[os.getenv('BOOTSTRAP_SERVERS')])
+kfk = KafkaDAO(bootstrap_servers=['192.168.1.77:9092'])
 
 def sensor_simulation(sensor):
     """Single-step simulation call (keeps backwards compatibility)."""
