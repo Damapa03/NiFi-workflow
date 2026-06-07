@@ -9,6 +9,7 @@ from KafkaDAO import KafkaDAO
 
 load_dotenv()
 
+topic = 'NiFiworkflow'
 kfk = KafkaDAO(bootstrap_servers=[os.getenv('BOOTSTRAP_SERVERS')])
 
 def sensor_simulation(sensor):
@@ -37,7 +38,7 @@ def _sensor_worker(sensor, interval, stop_event):
         }
         print(f"Sending sensor data: {sensorData}")
         with kfk:
-            kfk.send_async('ProyectoUD1', sensorData, key=sensor.getBayId())
+            kfk.send_async(topic, sensorData, key=sensor.getBayId())
 
         stop_event.wait(interval)
 

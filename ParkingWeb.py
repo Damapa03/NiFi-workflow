@@ -12,7 +12,7 @@ app = Flask(__name__)
 try:
     client = MongoClient(os.getenv('MONGO_URI'))
     client.admin.command('ismaster')
-    db = client['ProyectoUD1']
+    db = client['NiFiworkflow']
     collection = db['Sensors_lastupdate']
     print("MongoDB connection successful.")
 except Exception as e:
