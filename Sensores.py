@@ -6,7 +6,7 @@ from model.Sensor import Sensor
 from KafkaDAO import KafkaDAO
 
 topic = 'NiFiworkflow'
-kfk = KafkaDAO(bootstrap_servers=['192.168.1.77:9092'])
+kfk = KafkaDAO(bootstrap_servers=['kafka:9092'])
 
 def sensor_simulation(sensor):
     """Single-step simulation call (keeps backwards compatibility)."""
