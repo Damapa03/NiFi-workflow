@@ -36,3 +36,26 @@ services:
             interval: 10s
             timeout: 5s
             retries: 5
+
+    nifi:
+        image: apache/nifi:latest
+        container_name: nifi-test
+        ports:
+            - "8443:8443" # Puerto HTTPS por si acaso
+        environment:
+            # Forzar modo HTTP sin usuario
+            NIFI_WEB_HTTP_HOST: 0.0.0.0
+            NIFI_WEB_HTTP_PORT: 8080
+            # Credenciales de respaldo (Hadoop)
+            SINGLE_USER_CREDENTIALS_USERNAME: hadoop
+            SINGLE_USER_CREDENTIALS_PASSWORD: hadoophadoop
+        volumes:
+            - nifi-data:/opt/nifi/nifi-current/database_repository
+        depends_on:
+            kafka:
+                condition: service_healthy
+            #   mongodb:
+            #     condition: service_healthy
+
+volumes:
+    nifi-data:
