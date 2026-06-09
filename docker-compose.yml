@@ -54,8 +54,26 @@ services:
         depends_on:
             kafka:
                 condition: service_healthy
-            #   mongodb:
-            #     condition: service_healthy
+            mongodb:
+                condition: service_healthy
+
+    mongodb:
+        image: mongo:latest
+        container_name: mongodb
+        ports:
+            - "27017:27017"
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: admin
+            MONGO_INITDB_ROOT_PASSWORD: "1234"
+        volumes:
+            - mongo-data:/data/db
+            - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+        healthcheck:
+            test: ["CMD-SHELL", "mongosh --eval 'db.runCommand({ping:1})' --quiet || exit 1"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
 
 volumes:
     nifi-data:
+    mongo-data:

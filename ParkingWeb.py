@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # MongoDB connection setup
 try:
-    client = MongoClient('mongodb://admin:1234@192.168.1.77:27017/?directConnection=true&serverSelectionTimeoutMS=2000&authSource=admin&appName=mongosh+2.8.3')
+    client = MongoClient('mongodb://admin:1234@mongodb:27017/?directConnection=true&serverSelectionTimeoutMS=2000&authSource=admin&appName=mongosh+2.8.3')
     client.admin.command('ismaster')
     db = client['NiFiworkflow']
     collection = db['Sensors_lastupdate']
